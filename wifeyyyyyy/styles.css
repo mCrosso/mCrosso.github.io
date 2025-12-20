@@ -1,0 +1,116 @@
+/* ===== BASIC SETUP ===== */
+* {
+    cursor: none;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    transition: background-color 1s ease;
+}
+
+/* ===== CUSTOM CURSOR ===== */
+#cursor {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border: 4px solid white;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.7;
+    z-index: 9999;
+    /* Smooth transitions for all properties */
+    transition: transform 0.4s ease, opacity 0.4s ease, border-color 1s ease;
+}
+
+/* Cursor when clicking */
+#cursor.clicking {
+    opacity: 0.2;
+    transform: scale(0.8);
+}
+
+/* Motion blur when cursor moves fast */
+#cursor.moving-fast {
+    filter: blur(3px);
+}
+
+/* ===== MESSAGE TEXT ===== */
+#message {
+    font-family: Arial, sans-serif;
+    font-size: 28px;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    max-width: 80%;
+    white-space: pre-wrap;
+    transition: color 1s ease;
+}
+
+/* ===== MUSIC POPUP (Instagram Style) ===== */
+#music-popup {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    padding: 12px 16px;
+    border-radius: 20px;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.5s ease;
+    z-index: 1000;
+}
+
+/* Show the popup when active */
+#music-popup.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Music icon (animated image) */
+.music-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+    animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* Music info text */
+.music-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.music-title {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+}
+
+.music-artist {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+}
