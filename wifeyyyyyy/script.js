@@ -1,3 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><333</title>
+    <style>
+/* ===== BASIC SETUP ===== */
+* {
+    cursor: none;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    transition: background-color 1s ease;
+}
+
+/* ===== CUSTOM CURSOR ===== */
+#cursor {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border: 4px solid white;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.7;
+    z-index: 9999;
+    transition: transform 0.4s ease, opacity 0.4s ease, border-color 1s ease;
+}
+
+#cursor.clicking {
+    opacity: 0.2;
+    transform: scale(0.8);
+}
+
+#cursor.moving-fast {
+    filter: blur(3px);
+}
+
+/* ===== MESSAGE TEXT ===== */
+#message {
+    font-family: Arial, sans-serif;
+    font-size: 28px;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    max-width: 80%;
+    white-space: pre-wrap;
+    transition: color 1s ease;
+}
+
+/* ===== MUSIC POPUP ===== */
+#music-popup {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    padding: 12px 16px;
+    border-radius: 20px;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.5s ease;
+    z-index: 1000;
+}
+
+#music-popup.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.music-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+    animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.music-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.music-title {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+}
+
+.music-artist {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* ===== CREDITS SYSTEM ===== */
+#credits-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#credits-content {
+    transform: translateY(120vh);
+    text-align: center;
+}
+
+#credits-container.scrolling #credits-content {
+    animation: scroll-up-smooth 45s ease-out forwards;
+}
+
+@keyframes scroll-up-smooth {
+    0% { transform: translateY(120vh); }
+    100% { transform: translateY(-100%); }
+}
+
+#credits-end-fixed {
+    text-align: center;
+    margin-top: 150px;
+    font-family: 'Georgia', 'Garamond', serif;
+    font-size: 38px;
+    color: black;
+    font-style: italic;
+    font-weight: 300;
+}
+
+/* Floating Hearts */
+.floating-heart {
+    position: fixed;
+    font-size: 20px;
+    color: #ff1493;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 1;
+    animation: float-up linear forwards;
+}
+
+@keyframes float-up {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.6; }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.heart-wrapper {
+    margin-bottom: 50px;
+}
+
+.heart {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background: #ff1493;
+    margin: 0 auto;
+    transform: rotate(-45deg);
+    animation: heartbeat 1.5s ease-in-out infinite;
+    box-shadow: 0 0 25px rgba(255, 20, 147, 0.7), 0 0 50px rgba(255, 20, 147, 0.5);
+}
+
+.heart::before,
+.heart::after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: #ff1493;
+    border-radius: 50%;
+    box-shadow: 0 0 25px rgba(255, 20, 147, 0.7), 0 0 50px rgba(255, 20, 147, 0.5);
+}
+
+.heart::before {
+    top: -30px;
+    left: 0;
+}
+
+.heart::after {
+    left: 30px;
+    top: 0;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: rotate(-45deg) scale(1); }
+    25% { transform: rotate(-45deg) scale(1.15); }
+    50% { transform: rotate(-45deg) scale(1); }
+}
+
+.credits-title {
+    font-family: 'Georgia', 'Garamond', serif;
+    font-size: 52px;
+    font-weight: 400;
+    color: #2c2c2c;
+    margin-bottom: 100px;
+    letter-spacing: 1px;
+}
+
+.credit-reason {
+    font-family: 'Georgia', 'Garamond', serif;
+    font-size: 26px;
+    color: #2c2c2c;
+    margin: 40px 0;
+    line-height: 1.8;
+    font-style: italic;
+    font-weight: 400;
+}
+
+/* ===== TIMER ===== */
+#timer-display {
+    position: fixed;
+    top: 50%;
+    right: 40px;
+    transform: translateY(-50%) translateX(200px);
+    background: transparent;
+    z-index: 10000;
+    opacity: 0;
+    transition: transform 1s ease, opacity 1s ease;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+#timer-display.show {
+    transform: translateY(-50%) translateX(0);
+    opacity: 1;
+}
+
+#timer-display > div:first-child {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: #ff1493;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    border-left: 3px solid #ff1493;
+    padding-left: 10px;
+}
+
+#days-count {
+    display: block;
+    font-family: 'Impact', 'Arial Black', sans-serif;
+    font-weight: 900;
+    font-size: 20px;
+    color: #1a1a1a;
+    letter-spacing: 2px;
+    line-height: 1.4;
+    border: 3px solid #1a1a1a;
+    padding: 15px 10px;
+    background: white;
+}
+    </style>
+</head>
+<body>
+    <div id="cursor"></div>
+    <div id="message"></div>
+    
+    <div id="music-popup">
+        <img src="image.png" alt="Song Cover" class="music-icon">
+        <div class="music-info">
+            <div class="music-title">Song Title</div>
+            <div class="music-artist">Artist Name</div>
+        </div>
+    </div>
+
+    <audio id="background-music" loop>
+        <source src="This Is Home.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
 // ========================================
 // CURSOR SETUP
 // ========================================
@@ -83,13 +378,8 @@ function startMusic() {
 // ========================================
 
 function playVoiceMessage(filename) {
-    // Create a new audio element for this voice message
     const voiceAudio = new Audio(filename);
-    
-    // Play the voice message
     voiceAudio.play();
-    
-    // Handle errors
     voiceAudio.addEventListener('error', (e) => {
         console.error('Error loading voice message:', filename, e);
     });
@@ -98,10 +388,7 @@ function playVoiceMessage(filename) {
 function duckMusicForVoice() {
     const currentTime = audioContext.currentTime;
     const transitionTime = 0.8;
-    
-    // Lower music volume and apply filter
     audio.volume = 0.3;
-    
     lowPassFilter.frequency.setValueAtTime(lowPassFilter.frequency.value, currentTime);
     lowPassFilter.frequency.linearRampToValueAtTime(300, currentTime + transitionTime);
 }
@@ -109,10 +396,7 @@ function duckMusicForVoice() {
 function restoreMusic() {
     const currentTime = audioContext.currentTime;
     const transitionTime = 0.8;
-    
-    // Restore music volume and remove filter
     audio.volume = 1.0;
-    
     lowPassFilter.frequency.setValueAtTime(lowPassFilter.frequency.value, currentTime);
     lowPassFilter.frequency.linearRampToValueAtTime(20000, currentTime + transitionTime);
 }
@@ -132,15 +416,12 @@ const reasons = [
     "I love how you listen to me",
     "I love your sense of humor",
     "I love how you're always there for me",
-    // Add more reasons here - aim for 100!
     "I love everything about you"
 ];
 
 function startCredits() {
-    // Hide the message div
     messageDiv.style.display = 'none';
     
-    // Create credits container
     const creditsContainer = document.createElement('div');
     creditsContainer.id = 'credits-container';
     creditsContainer.innerHTML = `
@@ -152,7 +433,7 @@ function startCredits() {
             ${reasons.map((reason, index) => `
                 <p class="credit-reason">${index + 1}. ${reason}</p>
             `).join('')}
-            <p class="credits-end">— Forever Yours —</p>
+            <div id="credits-end-fixed">— Forever Yours —</div>
         </div>
         <div id="timer-display">
             <div>Days since you made me the happiest person alive</div>
@@ -162,73 +443,96 @@ function startCredits() {
     
     document.body.appendChild(creditsContainer);
     
-    // Force a reflow to ensure initial position is set
     creditsContainer.offsetHeight;
     
-    // Calculate animation duration based on content height
-    // Speed: pixels per second (adjust this value to change speed)
-    const scrollSpeed = 15; // Lower = slower, Higher = faster
+    const scrollSpeed = 15;
     const creditsContent = document.getElementById('credits-content');
     const contentHeight = creditsContent.scrollHeight;
     const duration = contentHeight / scrollSpeed;
     
-    // Set the animation duration dynamically
     creditsContent.style.animationDuration = duration + 's';
     
-    // Start the scroll animation after ensuring position is set
     setTimeout(() => {
         creditsContainer.classList.add('scrolling');
+        watchForeverYours();
     }, 100);
     
-    // Animate timer in from top after a brief delay
     setTimeout(() => {
         document.getElementById('timer-display').classList.add('show');
     }, 500);
     
-    // Start the timer
     startCountUpTimer();
-    
-    // Start floating hearts
     startFloatingHearts();
 }
 
+function watchForeverYours() {
+    const foreverYours = document.getElementById('credits-end-fixed');
+    const creditsContent = document.getElementById('credits-content');
+    let hasFixed = false;
+    
+    function check() {
+        if (hasFixed) return;
+        
+        const rect = foreverYours.getBoundingClientRect();
+        const middleOfScreen = window.innerHeight / 2;
+        const elementMiddle = rect.top + (rect.height / 2);
+        
+        if (elementMiddle <= middleOfScreen && elementMiddle >= middleOfScreen - 50) {
+            hasFixed = true;
+            
+            const clone = document.createElement('div');
+            clone.textContent = foreverYours.textContent;
+            clone.style.position = 'fixed';
+            clone.style.top = '50%';
+            clone.style.left = '50%';
+            clone.style.transform = 'translate(-50%, -50%)';
+            clone.style.fontFamily = 'Georgia, Garamond, serif';
+            clone.style.fontSize = '38px';
+            clone.style.color = 'black';
+            clone.style.fontStyle = 'italic';
+            clone.style.fontWeight = '300';
+            clone.style.textAlign = 'center';
+            clone.style.zIndex = '10000';
+            clone.style.margin = '0';
+            clone.style.padding = '0';
+            clone.style.whiteSpace = 'nowrap';
+            
+            document.body.appendChild(clone);
+            foreverYours.style.visibility = 'hidden';
+            
+            return;
+        }
+        
+        requestAnimationFrame(check);
+    }
+    
+    requestAnimationFrame(check);
+}
+
 function startFloatingHearts() {
-    setInterval(() => {
+    function createHeart() {
         const heart = document.createElement('div');
         heart.className = 'floating-heart';
         heart.textContent = '♥';
-        
-        // Random horizontal position
         heart.style.left = Math.random() * 100 + '%';
-        
-        // Start from bottom
         heart.style.bottom = '-50px';
-        
-        // Random animation duration (8-15 seconds)
         const duration = 8 + Math.random() * 7;
         heart.style.animationDuration = duration + 's';
-        
-        // Random size
         const size = 15 + Math.random() * 15;
         heart.style.fontSize = size + 'px';
-        
         document.body.appendChild(heart);
-        
-        // Remove after animation
-        setTimeout(() => {
-            heart.remove();
-        }, duration * 1000);
-    }, 800); // Create a new heart every 800ms
+        setTimeout(() => heart.remove(), duration * 1000);
+    }
+    
+    setInterval(createHeart, 800);
 }
 
 function startCountUpTimer() {
-    // Set your relationship start date here
-    const startDate = new Date('2024-01-01'); // CHANGE THIS DATE!
+    const startDate = new Date('2023-10-19');
     
     function updateTimer() {
         const now = new Date();
         const diff = now - startDate;
-        
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -239,7 +543,7 @@ function startCountUpTimer() {
     }
     
     updateTimer();
-    setInterval(updateTimer, 1000); // Update every second
+    setInterval(updateTimer, 1000);
 }
 
 // ========================================
@@ -252,12 +556,9 @@ let currentStageIndex = 0;
 let currentChar = 0;
 let isTyping = false;
 
-// ===== DEBUG MODE =====
-const DEBUG_MODE = true;  // Set to false to disable debugging
-const DEBUG_STAGE = "credits";  // Stage name to jump to for testing
+const DEBUG_MODE = true;
+const DEBUG_STAGE = "credits";
 
-// ===== STAGE DEFINITIONS =====
-// Each stage is an object with actions and content
 const stages = [
     {
         name: "intro",
@@ -287,9 +588,8 @@ const stages = [
             document.body.style.backgroundColor = 'white';
             messageDiv.style.color = 'black';
             cursor.style.borderColor = 'black';
-            duckMusicForVoice();  // Duck the music
+            duckMusicForVoice();
             playVoiceMessage('voice3.mp3');
-            // restoreMusic();  // USE THIS to restore music volume and remove filter
         }
     },
     {
@@ -298,7 +598,7 @@ const stages = [
     },
     {
         name: "credits",
-        message: "",  // No typing for credits
+        message: "",
         onEnter: () => {
             startMusic();
             startCredits();
@@ -306,8 +606,6 @@ const stages = [
         }
     }
 ];
-
-// ===== STAGE FUNCTIONS =====
 
 function typeMessage() {
     if (!isTyping) return;
@@ -322,7 +620,6 @@ function typeMessage() {
         setTimeout(typeMessage, TYPING_SPEED);
     } else {
         isTyping = false;
-        // Wait for click to go to next stage
         document.addEventListener('click', nextStage, { once: true });
     }
 }
@@ -330,11 +627,9 @@ function typeMessage() {
 function nextStage() {
     currentStageIndex++;
     
-    // Check if there are more stages
     if (currentStageIndex < stages.length) {
         startStage(currentStageIndex);
     } else {
-        // All stages complete
         console.log("All stages complete!");
     }
 }
@@ -342,25 +637,19 @@ function nextStage() {
 function startStage(stageIndex) {
     const stage = stages[stageIndex];
     
-    // Run onEnter function if it exists
     if (stage.onEnter) {
         stage.onEnter();
     }
     
-    // Only type if there's a message
     if (stage.message && stage.message.length > 0) {
         currentChar = 0;
         isTyping = true;
         typeMessage();
     } else {
-        // No message to type (like credits), just wait for completion
         isTyping = false;
     }
 }
 
-// ===== START THE EXPERIENCE =====
-
-// Show debug indicator if debug mode is on
 if (DEBUG_MODE) {
     const debugBadge = document.createElement('div');
     debugBadge.style.cssText = `
@@ -376,10 +665,9 @@ if (DEBUG_MODE) {
         z-index: 99999;
         pointer-events: none;
     `;
-    debugBadge.textContent = `🐛 DEBUG: ${DEBUG_STAGE}`;
+    debugBadge.textContent = `🛠 DEBUG: ${DEBUG_STAGE}`;
     document.body.appendChild(debugBadge);
     
-    // Pre-setup for credits debugging (white background)
     if (DEBUG_STAGE === "credits" || DEBUG_STAGE === "color_change" || DEBUG_STAGE === "final_message") {
         document.body.style.backgroundColor = 'white';
         document.getElementById('message').style.color = 'black';
@@ -390,14 +678,13 @@ if (DEBUG_MODE) {
 document.addEventListener('click', () => {
     if (currentStageIndex === 0 && currentChar === 0) {
         if (DEBUG_MODE) {
-            // Find the debug stage index
             const debugIndex = stages.findIndex(stage => stage.name === DEBUG_STAGE);
             if (debugIndex !== -1) {
-                console.log(`🐛 DEBUG MODE: Jumping to stage "${DEBUG_STAGE}" (index ${debugIndex})`);
+                console.log(`🛠 DEBUG MODE: Jumping to stage "${DEBUG_STAGE}" (index ${debugIndex})`);
                 currentStageIndex = debugIndex;
                 startStage(debugIndex);
             } else {
-                console.error(`🐛 DEBUG MODE: Stage "${DEBUG_STAGE}" not found!`);
+                console.error(`🛠 DEBUG MODE: Stage "${DEBUG_STAGE}" not found!`);
                 startStage(0);
             }
         } else {
@@ -405,3 +692,6 @@ document.addEventListener('click', () => {
         }
     }
 }, { once: true });
+    </script>
+</body>
+</html>
