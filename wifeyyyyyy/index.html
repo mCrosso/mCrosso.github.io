@@ -67,7 +67,11 @@ body::after {
     padding: 20px;
     max-width: 80%;
     white-space: pre-wrap;
-    transition: color 1s ease;
+    transition: color 1s ease, transform 0.3s ease;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.1);
+    letter-spacing: 0.5px;
+    position: relative;
+    z-index: 10;
 }
 
 /* ===== MUSIC POPUP ===== */
@@ -86,6 +90,7 @@ body::after {
     transform: translateY(-20px);
     transition: all 0.5s ease;
     z-index: 1000;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 #music-popup.active {
@@ -262,10 +267,12 @@ body::after {
     text-align: center;
     margin-top: 150px;
     font-family: 'Georgia', 'Garamond', serif;
-    font-size: 38px;
+    font-size: 48px;
     color: black;
     font-style: italic;
     font-weight: 300;
+    text-shadow: 0 2px 20px rgba(255, 110, 196, 0.3), 0 4px 40px rgba(120, 115, 245, 0.2);
+    letter-spacing: 2px;
 }
 
 /* Floating Hearts */
@@ -277,6 +284,8 @@ body::after {
     pointer-events: none;
     z-index: 1;
     animation: float-up linear forwards;
+    text-shadow: 0 0 15px rgba(255, 20, 147, 0.4), 0 0 30px rgba(255, 20, 147, 0.3), 0 0 45px rgba(255, 20, 147, 0.2);
+    transition: transform 0.3s ease;
 }
 
 @keyframes float-up {
@@ -538,6 +547,59 @@ function updateBlobMask() {
 updateBlobMask();
 
 // ========================================
+// BLOB DISPLACEMENT ON OTHER ELEMENTS
+// ========================================
+function applyBlobDisplacement() {
+    const blob = document.getElementById('gradient-background');
+    const message = document.getElementById('message');
+    const hearts = document.querySelectorAll('.floating-heart');
+    
+    if (!blob || !message) return;
+    
+    const blobRect = blob.getBoundingClientRect();
+    const blobCenterX = blobRect.left + blobRect.width / 2;
+    const blobCenterY = blobRect.top + blobRect.height / 2;
+    
+    // Displace message text
+    const msgRect = message.getBoundingClientRect();
+    const msgCenterX = msgRect.left + msgRect.width / 2;
+    const msgCenterY = msgRect.top + msgRect.height / 2;
+    const msgDx = msgCenterX - blobCenterX;
+    const msgDy = msgCenterY - blobCenterY;
+    const msgDistance = Math.sqrt(msgDx * msgDx + msgDy * msgDy);
+    
+    if (msgDistance < blobRect.width / 2) {
+        const msgDisplacementStrength = 8;
+        const msgPushX = (msgDx / msgDistance) * msgDisplacementStrength;
+        const msgPushY = (msgDy / msgDistance) * msgDisplacementStrength;
+        message.style.transform = `translate(${msgPushX}px, ${msgPushY}px)`;
+    } else {
+        message.style.transform = 'translate(0, 0)';
+    }
+    
+    // Displace hearts
+    hearts.forEach(heart => {
+        const heartRect = heart.getBoundingClientRect();
+        const heartCenterX = heartRect.left + heartRect.width / 2;
+        const heartCenterY = heartRect.top + heartRect.height / 2;
+        const heartDx = heartCenterX - blobCenterX;
+        const heartDy = heartCenterY - blobCenterY;
+        const heartDistance = Math.sqrt(heartDx * heartDx + heartDy * heartDy);
+        
+        if (heartDistance < blobRect.width / 2) {
+            const heartDisplacementStrength = 5;
+            const heartPushX = (heartDx / heartDistance) * heartDisplacementStrength;
+            const heartPushY = (heartDy / heartDistance) * heartDisplacementStrength;
+            heart.style.transform = `translate(${heartPushX}px, ${heartPushY}px)`;
+        }
+    });
+    
+    requestAnimationFrame(applyBlobDisplacement);
+}
+
+applyBlobDisplacement();
+
+// ========================================
 // MUSIC SETUP
 // ========================================
 const musicPopup = document.getElementById('music-popup');
@@ -679,7 +741,7 @@ function watchForeverYours() {
             clone.style.left = '50%';
             clone.style.transform = 'translate(-50%, -50%)';
             clone.style.fontFamily = 'Georgia, Garamond, serif';
-            clone.style.fontSize = '38px';
+            clone.style.fontSize = '48px';
             clone.style.color = 'black';
             clone.style.fontStyle = 'italic';
             clone.style.fontWeight = '300';
@@ -688,6 +750,8 @@ function watchForeverYours() {
             clone.style.margin = '0';
             clone.style.padding = '0';
             clone.style.whiteSpace = 'nowrap';
+            clone.style.textShadow = '0 2px 20px rgba(255, 110, 196, 0.3), 0 4px 40px rgba(120, 115, 245, 0.2)';
+            clone.style.letterSpacing = '2px';
             
             document.body.appendChild(clone);
             foreverYours.style.visibility = 'hidden';
