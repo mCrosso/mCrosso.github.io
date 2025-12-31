@@ -1263,6 +1263,7 @@ const stages = [
         name: "message_3",
         message: "You said yes.",
         onEnter: () => {
+            duckMusicForVoice()
             document.body.classList.add('white-mode');
             messageDiv.style.color = 'black';
             cursor.style.borderColor = 'black';
@@ -1301,14 +1302,14 @@ const stages = [
         name: "message_2",
         message: "Right now, I'm the happiest and the proudest person alive to have met you and to call myself your husband lol.",
         onEnter: () => {
-            playVoiceMessage("assets/v5")
+            playVoiceMessage("assets/v5.m4a")
         }
     },
         {
         name: "message_2",
         message: "I love you for all eternity baby.",
         onEnter: () => {
-            playVoiceMessage("assets/v66")
+            playVoiceMessage("assets/v66.m4a")
                         document.body.classList.add('white-mode');
             messageDiv.style.color = 'black';
             cursor.style.borderColor = 'black';
@@ -1319,7 +1320,7 @@ const stages = [
         message: "So you said we should wait a week, and you even bet that I wouldn't last a week LMFAO.",
 
         onEnter: () => {
-            playVoiceMessage('assets/v6');
+            playVoiceMessage('assets/v6.m4a');
         }
     },
         {
@@ -1327,7 +1328,7 @@ const stages = [
         message: "Guess who won the bet honey :)",
 
         onEnter: () => {
-            playVoiceMessage('assets/v7');
+            playVoiceMessage('assets/v7.m4a');
         }
     },
         {
@@ -1335,7 +1336,7 @@ const stages = [
         message: "AND SO OUR AMAZING RELATIONSHIP STARTED SAILING",
 
         onEnter: () => {
-            playVoiceMessage('assets/v8');
+            playVoiceMessage('assets/v8.m4a');
         }
     },
         {
@@ -1343,7 +1344,7 @@ const stages = [
         message: "I honestly didn't expect us to become this close baby, to get this far.",
 
         onEnter: () => {
-            playVoiceMessage('assets/v9');
+            playVoiceMessage('assets/v9.m4a');
         }
     },
         {
@@ -1351,7 +1352,7 @@ const stages = [
         message: "And I was honestly beyond scared because I was going in without knowing much about you, with nothing but hope.",
 
         onEnter: () => {
-            playVoiceMessage('assets/v10');
+            playVoiceMessage('assets/v10.m4a');
         }
     },
         {
@@ -1359,7 +1360,7 @@ const stages = [
         message: "And I’m so fucking glad I did.",
 
         onEnter: () => {
-            playVoiceMessage('assets/v11');
+            playVoiceMessage('assets/v11.m4a');
         }
     },
         {
@@ -1367,7 +1368,7 @@ const stages = [
         message: "It’s the best decision I’ve taken my whole life.",
 
         onEnter: () => {
-            playVoiceMessage('assets/v12');
+            playVoiceMessage('assets/v12.m4a');
         }
     },
         {
@@ -1375,14 +1376,14 @@ const stages = [
         message: "You are the best thing that’s happened to me in my entire life honey.",
 
         onEnter: () => {
-            playVoiceMessage('assets/v13');
+            playVoiceMessage('assets/v13.m4a');
         }
     },
         {
         name: "message_3",
         message: "I’m so proud of us baby.",
         onEnter: () => {
-            playVoiceMessage('assets/v15');
+            playVoiceMessage('assets/v15.m4a');
             showImage('assets/all.jpg',)
         }
     },
@@ -1391,7 +1392,7 @@ const stages = [
         message: "Oh I’m so proud of YOU honey.",
 
         onEnter: () => {
-            playVoiceMessage('assets/v14');
+            playVoiceMessage('assets/v14.m4a');
         }
     },
         {
@@ -1399,7 +1400,7 @@ const stages = [
         message: "You changed a lot from the day we met.",
 
         onEnter: () => {
-            playVoiceMessage('assets/v16');
+            playVoiceMessage('assets/v16.m4a');
         }
     },
         {
@@ -1407,7 +1408,7 @@ const stages = [
         message: "You were always amazing but you’ve became EVEN more amazing.",
 
         onEnter: () => {
-            playVoiceMessage('assets/v17');
+            playVoiceMessage('assets/v17.m4a');
         }
     },
         {
@@ -1415,7 +1416,7 @@ const stages = [
         message: "And you changed me with you.",
 
         onEnter: () => {
-            playVoiceMessage('assets/v18');
+            playVoiceMessage('assets/v18.m4a');
         }
     },
         {
@@ -1423,7 +1424,7 @@ const stages = [
         message: "We’ve made a ton of amazing memories honey.",
 
         onEnter: () => {
-            playVoiceMessage('assets/v19');
+            playVoiceMessage('assets/v19.m4a');
         }
     },
         {
@@ -1431,7 +1432,7 @@ const stages = [
         message: "And we’re gonna make so many more to come.",
 
         onEnter: () => {
-            playVoiceMessage('assets/v20');
+            playVoiceMessage('assets/v20.m4a');
         }
     },
             {
@@ -1439,7 +1440,7 @@ const stages = [
         message: "SOOOOOOOOOOO BABYYYYYYYY :)",
 
         onEnter: () => {
-            playVoiceMessage('assets/v21');
+            playVoiceMessage('assets/v21.m4a');
         }
     },
     //--------------------------------------------------------
@@ -1447,42 +1448,42 @@ const stages = [
         name: "color_change",
         message: "HAPPY NEW YEAR MY BABYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
         onEnter: () => {
-            playVoiceMessage('assets/v22');
+            playVoiceMessage('assets/v22.m4a');
         }
     },
     {
         name: "final_message",
         message: "And this is just the beginning honey :)",
                 onEnter: () => {
-            playVoiceMessage('assets/v23');
+            playVoiceMessage('assets/v23.m4a');
         }
     },
         {
         name: "final_message",
         message: "I'm gonna keep working on this until the day we meet and even after. This is gonna be like our album baby. God I love you.",
                 onEnter: () => {
-            playVoiceMessage('assets/v24');
+            playVoiceMessage('assets/v24.m4a');
         }
     },
             {
         name: "final_message",
         message: "I love you more than anything there is honey.",
                 onEnter: () => {
-            playVoiceMessage('assets/v25');
+            playVoiceMessage('assets/v25.m4a');
         }
     },
                 {
         name: "final_message",
         message: "I love you my amazing lovely wife. I love you baby. MMMMMMMAWH.",
                 onEnter: () => {
-            playVoiceMessage('assets/v26');
+            playVoiceMessage('assets/v26.m4a');
         }
     },
                     {
         name: "final_message",
         message: "Rrrrooooll the creeeddditsshhuhhh",
                 onEnter: () => {
-            playVoiceMessage('assets/v27');
+            playVoiceMessage('assets/v27.m4a');
         }
     },
                 {
