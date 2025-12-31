@@ -5,8 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><333</title>
     <style>
+
+html {
+    color-scheme: light only !important;
+}
+
+body {
+    background-color: black !important;
+    color: white !important;
+}
+
+/* Force white background when it changes */
+body.white-mode {
+    background-color: white !important;
+    color: black !important;
+}
+
 /* ===== BASIC SETUP ===== */
 * {
+    filter: none !important;
     cursor: none;
     margin: 0;
     padding: 0;
@@ -255,7 +272,7 @@ body::after {
 }
 
 #credits-container.scrolling #credits-content {
-    animation: scroll-up-smooth 45s ease-out forwards;
+    animation: scroll-up-smooth 45s linear forwards; /* Changed from ease-out to linear for consistent speed */
 }
 
 @keyframes scroll-up-smooth {
@@ -429,6 +446,24 @@ body::after {
     padding: 15px 10px;
     background: white;
 }
+
+#stage-image {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 400px;
+    max-height: 400px;
+    opacity: 0;
+    transition: opacity 0.5s ease, top 0.5s ease;
+    z-index: 5;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    top: 70%; /* Starts below center */
+}
+
+#stage-image.show {
+    opacity: 1;
+}
     </style>
 </head>
 <body>
@@ -440,7 +475,7 @@ body::after {
     <div id="message"></div>
     
     <div id="music-popup">
-        <img src="image.png" alt="Song Cover" class="music-icon">
+        <img src="assets/image.png" alt="Song Cover" class="music-icon">
         <div class="music-info">
             <div class="music-title">Song Title</div>
             <div class="music-artist">Artist Name</div>
@@ -448,13 +483,60 @@ body::after {
     </div>
 
     <audio id="background-music" loop>
-        <source src="This Is Home.mp3" type="audio/mpeg">
+        <source src="Nico Collins - Our Way Out.mp3" type="audio/mpeg">
     </audio>
 
     <script>
 // ========================================
 // CURSOR SETUP
 // ========================================
+function showImage(imageSrc) {
+    // Remove existing image if any
+    const existingImg = document.getElementById('stage-image');
+    if (existingImg) {
+        existingImg.remove();
+    }
+    
+    // Create new image element
+    const img = document.createElement('img');
+    img.id = 'stage-image';
+    img.src = imageSrc;
+    img.alt = 'Stage Image';
+    
+    document.body.appendChild(img);
+    
+    // Calculate position below the message text
+    const messageDiv = document.getElementById('message');
+    const messageRect = messageDiv.getBoundingClientRect();
+    const messageBottom = messageRect.bottom;
+    
+    // Position image 30px below the message text
+    img.style.top = (messageBottom + 30) + 'px';
+    
+    // Trigger animation after a brief delay
+    setTimeout(() => {
+        img.classList.add('show');
+    }, 100);
+}
+
+function hideImage() {
+    const img = document.getElementById('stage-image');
+    if (img) {
+        img.classList.remove('show');
+        setTimeout(() => img.remove(), 500);
+    }
+}
+
+// Example usage in your stages - NEW WAY:
+const exampleStage = {
+    name: "example_with_image",
+    message: "Check out this cool image!",
+    showImageAfter: 'your-image.png', // Image shows AFTER text finishes typing
+    onEnter: () => {
+        // You can still do other things here
+        startMusic();
+    }
+};
 const cursor = document.getElementById('cursor');
 
 let mouseX = 0;
@@ -605,8 +687,8 @@ applyBlobDisplacement();
 const musicPopup = document.getElementById('music-popup');
 const audio = document.getElementById('background-music');
 
-const SONG_TITLE = "This Is Home";
-const ARTIST_NAME = "Cavetown";
+const SONG_TITLE = "Our Way Out";
+const ARTIST_NAME = "Nico Collins";
 
 document.querySelector('.music-title').textContent = SONG_TITLE;
 document.querySelector('.music-artist').textContent = ARTIST_NAME;
@@ -698,12 +780,13 @@ function startCredits() {
     
     creditsContainer.offsetHeight;
     
-    const scrollSpeed = 15;
+    const scrollSpeed = 20;
     const creditsContent = document.getElementById('credits-content');
     const contentHeight = creditsContent.scrollHeight;
     const duration = contentHeight / scrollSpeed;
     
     creditsContent.style.animationDuration = duration + 's';
+    creditsContent.style.animationTimingFunction = 'linear'; // Enforce linear constant speed
     
     setTimeout(() => {
         creditsContainer.classList.add('scrolling');
@@ -721,7 +804,6 @@ function startCredits() {
 
 function watchForeverYours() {
     const foreverYours = document.getElementById('credits-end-fixed');
-    const creditsContent = document.getElementById('credits-content');
     let hasFixed = false;
     
     function check() {
@@ -731,30 +813,51 @@ function watchForeverYours() {
         const middleOfScreen = window.innerHeight / 2;
         const elementMiddle = rect.top + (rect.height / 2);
         
-        if (elementMiddle <= middleOfScreen && elementMiddle >= middleOfScreen - 50) {
+        // Triggers when the text is 100px away from the center.
+        // Moving from center+100px to center.
+        if (elementMiddle <= middleOfScreen + 100) {
             hasFixed = true;
             
             const clone = document.createElement('div');
             clone.textContent = foreverYours.textContent;
+            
+            // Copy exact styles from the original
+            const computedStyle = window.getComputedStyle(foreverYours);
+            clone.style.fontFamily = computedStyle.fontFamily;
+            clone.style.fontSize = computedStyle.fontSize;
+            clone.style.color = computedStyle.color;
+            clone.style.fontStyle = computedStyle.fontStyle;
+            clone.style.fontWeight = computedStyle.fontWeight;
+            clone.style.letterSpacing = computedStyle.letterSpacing;
+            clone.style.textShadow = computedStyle.textShadow;
+            
+            // Setup fixed position
             clone.style.position = 'fixed';
-            clone.style.top = '50%';
             clone.style.left = '50%';
-            clone.style.transform = 'translate(-50%, -50%)';
-            clone.style.fontFamily = 'Georgia, Garamond, serif';
-            clone.style.fontSize = '48px';
-            clone.style.color = 'black';
-            clone.style.fontStyle = 'italic';
-            clone.style.fontWeight = '300';
+            clone.style.transform = 'translate(-50%, -50%)'; // Centers the element itself
             clone.style.textAlign = 'center';
             clone.style.zIndex = '10000';
             clone.style.margin = '0';
             clone.style.padding = '0';
             clone.style.whiteSpace = 'nowrap';
-            clone.style.textShadow = '0 2px 20px rgba(255, 110, 196, 0.3), 0 4px 40px rgba(120, 115, 245, 0.2)';
-            clone.style.letterSpacing = '2px';
+            
+            // STEP 1: Set initial position
+            clone.style.top = elementMiddle + 'px';
+            
+            // STEP 2: Apply the slowing down transition (Easing)
+            // Distance = 100px. Initial Speed = 15px/s. 
+            // Duration calculation: 2 * distance / initial_speed = 2 * 100 / 15 ≈ 13.3s
+            // We use 12s with ease-out to start at approximately the same scrolling speed and decay to 0.
+            clone.style.transition = 'top 12s cubic-bezier(0.25, 1, 0.5, 1)';
             
             document.body.appendChild(clone);
             foreverYours.style.visibility = 'hidden';
+            
+            // Force a reflow
+            clone.offsetHeight; 
+            
+            // STEP 3: Move to the final center position
+            clone.style.top = '50%';
             
             return;
         }
@@ -875,7 +978,7 @@ let currentStageIndex = 0;
 let currentChar = 0;
 let isTyping = false;
 
-const DEBUG_MODE = true;
+const DEBUG_MODE = false;
 const DEBUG_STAGE = "credits";
 
 const stages = [
@@ -883,26 +986,80 @@ const stages = [
         name: "intro",
         message: "OKAY SO THIS IS THE MOST CREATIVE I COULD EVER BE, PLEASE BEAR WITH ME :SOB:.",
         onEnter: () => {
+
+        }
+    },
+    {
+        name: "message_0",
+        message: "So before 2025 ends I want you to have this gift all the time with you C:",
+        onEnter: () => {
             startMusic();
+            playVoiceMessage('voice1.mp3');
         }
     },
     {
         name: "message_1",
-        message: "First of all my baby I adore you more than anything else.",
+        message: "First of all my baby I adore you more than anything else that exists in this whole entire world.",
         onEnter: () => {
             playVoiceMessage('voice1.mp3');
         }
     },
     {
         name: "message_2",
-        message: "Right now, I'm the happiest and the proudest person alive to have met you and to call myself your husband.",
+        message: "Right now, I'm the happiest and the proudest person alive to have met you and to call myself your husband lol.",
         onEnter: () => {
             playVoiceMessage('voice2.mp3');
         }
     },
     {
+        name: "message_3",
+        message: "Thank you for coming into my life and becoming my rose.",
+        showImageAfter: 'assets/rose.png',
+        onEnter: () => {
+            playVoiceMessage('voice2.mp3');
+        }
+    },
+    {
+        name: "message_4",
+        message: "And thank you for letting me be your tulip.",
+        showImageAfter: 'assets/tulip.png',
+        onEnter: () => {
+            playVoiceMessage('voice2.mp3');
+        }
+    },
+    {
+        name: "message_5",
+        message: "You've truly become everything I ever wanted lol.",
+        showImageAfter: 'assets/rosetulip.png',
+        onEnter: () => {
+            playVoiceMessage('voice2.mp3');
+        }
+    },
+    
+    {
+        name: "message_1",
+        message: "3 years, 4 months, and 18 days ago, we met in a groupchat",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+    {
+        name: "message_2",
+        message: "Me, you and the whale (Never gonna mention her again cuz yukk ewwwwaah)",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+    {
+        name: "message_3",
+        message: "You started by cussing me the fuck out :D",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+    {
         name: "color_change",
-        message: "HAPPY ONE YEAR ANNIVERSARY BABYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
+        message: "HAPPY NEW YEAR MY BABYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
         onEnter: () => {
             document.body.style.backgroundColor = 'white';
             messageDiv.style.color = 'black';
@@ -919,9 +1076,8 @@ const stages = [
         name: "credits",
         message: "",
         onEnter: () => {
-            startMusic();
             startCredits();
-            duckMusicForVoice();
+            restoreMusic();
         }
     }
 ];
@@ -939,12 +1095,22 @@ function typeMessage() {
         setTimeout(typeMessage, TYPING_SPEED);
     } else {
         isTyping = false;
+        
+        // Show image after typing completes (if the stage has one)
+        if (currentStage.showImageAfter) {
+            setTimeout(() => {
+                showImage(currentStage.showImageAfter);
+            }, 300); // Small delay after text finishes
+        }
+        
         document.addEventListener('click', nextStage, { once: true });
     }
 }
 
 function nextStage() {
+    hideImage();
     currentStageIndex++;
+
     
     if (currentStageIndex < stages.length) {
         startStage(currentStageIndex);
