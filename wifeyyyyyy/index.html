@@ -982,9 +982,15 @@ const DEBUG_MODE = false;
 const DEBUG_STAGE = "credits";
 
 const stages = [
+        {
+        name: "pre-intro",
+        message: "Okay SOOO SOME RULES FIRST:\n 1. wait 1-2 seconds after each click\n 2. Do not switch tabs until the end (it causes bugs) \n 3. uhhh I actually forgot :D..",
+        onEnter: () => {
+        }
+    },
     {
         name: "intro",
-        message: "OKAY SO THIS IS THE MOST CREATIVE I COULD EVER BE, PLEASE BEAR WITH ME :SOB:.",
+        message: "OKAY OKAY SO THIS IS THE MOST CREATIVE I COULD EVER BE, PLEASE BEAR WITH ME :SOB:.",
         onEnter: () => {
 
         }
@@ -997,44 +1003,6 @@ const stages = [
             playVoiceMessage('voice1.mp3');
         }
     },
-    {
-        name: "message_1",
-        message: "First of all my baby I adore you more than anything else that exists in this whole entire world.",
-        onEnter: () => {
-            playVoiceMessage('voice1.mp3');
-        }
-    },
-    {
-        name: "message_2",
-        message: "Right now, I'm the happiest and the proudest person alive to have met you and to call myself your husband lol.",
-        onEnter: () => {
-            playVoiceMessage('voice2.mp3');
-        }
-    },
-    {
-        name: "message_3",
-        message: "Thank you for coming into my life and becoming my rose.",
-        showImageAfter: 'assets/rose.png',
-        onEnter: () => {
-            playVoiceMessage('voice2.mp3');
-        }
-    },
-    {
-        name: "message_4",
-        message: "And thank you for letting me be your tulip.",
-        showImageAfter: 'assets/tulip.png',
-        onEnter: () => {
-            playVoiceMessage('voice2.mp3');
-        }
-    },
-    {
-        name: "message_5",
-        message: "You've truly become everything I ever wanted lol.",
-        showImageAfter: 'assets/rosetulip.png',
-        onEnter: () => {
-            playVoiceMessage('voice2.mp3');
-        }
-    },
     
     {
         name: "message_1",
@@ -1045,7 +1013,7 @@ const stages = [
     },
     {
         name: "message_2",
-        message: "Me, you and the whale (Never gonna mention her again cuz yukk ewwwwaah)",
+        message: "Me, you and the whale (yukk ewwwwaah)",
         showImageAfter: "assets/images.jpg",
         onEnter: () => {
             playVoiceMessage('voice1.mp3');
@@ -1058,20 +1026,468 @@ const stages = [
             playVoiceMessage('voice1.mp3');
         }
     },
-    {
-        name: "color_change",
-        message: "HAPPY NEW YEAR MY BABYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
+        {
+        name: "message_4",
+        message: "And then you just came a while after apologizing and asking if we could be friends??",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+        {
+        name: "message_3",
+        message: "NIGGA I THOUGHT YOU WANTED TO KILL ME LMFOA",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+        {
+        name: "message_3",
+        message: "But at the same time it made me very very happy C:",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+        {
+        name: "message_3",
+        message: "A while after me and you became friends, we started to regularly text each other.",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+        {
+        name: "message_3",
+        message: "Whether it be on league while we’re all playing together or in the group chat",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+        {
+        name: "message_3",
+        message: "I was genuinely trying to be a good friend to you because I felt like you deserved a good friend at the very least and so I tried my absolute best to be a great friend to you.",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+        {
+        name: "message_3",
+        message: "At first I usually invited you to come play with us so you could wind down from gutter, but then it at some point it changed, I started wanting you to be here more.",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+            {
+        name: "message_3",
+        message: "I also wanted to text you privately and support you somehow, I know it’s selfish of me but I couldn’t just sit and watch you suffer alone.",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+            {
+        name: "message_3",
+        message: "And honestly all that strength of yours made me respect and admire you for how strong you are.",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+            {
+        name: "message_3",
+        message: "And then we randomly started texting privately :D, whether it be to ask about our connector or to just check up on each other from time to time.",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+            {
+        name: "message_3",
+        message: "Up until you told me you’d stop texting me in dms because of gutter.",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+            {
+        name: "message_3",
+        message: "I respected that decision you took and it made me respect and admire you even more but it still slightly upset me",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+            {
+        name: "message_3",
+        message: "Around that time I starting caring more and more for you because you seemed like a great person to me and you still are, and then we started texting more and more on the group chat and getting even closer than ever before.",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+            {
+        name: "message_3",
+        message: "And at some point you decided to start texting me back privately.",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+            {
+        name: "message_3",
+        message: "I’m not sure if it was a fight between me and our connector back then or you and her or what exactly but you texted me for some reason, and that was when we started texting each other again.",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+            {
+        name: "message_3",
+        message: "We kept getting closer and closer until at some point you became like a little sister to me C:",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+            {
+        name: "message_3",
+        message: "I cared about you greatly and you were so close to me. And that day you broke up with gutter it made me so…",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+
+            {
+        name: "message_3",
+        message: "SO GENUINELY FUCKING HAPPY I GENUINELY WANTED TO LITERLALY FUCKING DANCE BACK THEN LMFAOOAO",
+        onEnter: () => {
+            showImage('assets/suit.gif')
+        }
+    },
+            {
+        name: "message_3",
+        message: "Fast forward a few months later, came the thing with Cyprus. I had just had a fight with her back then and I wanted someone to talk to and you were the first person to come to my mind. I had problem at the company, problems at my uni.",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+            {
+        name: "message_3",
+        message: "I had lied back then and I told you that she was asleep but I actually just didn’t want to talk to her and wanted to talk to you instead c:",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+            {
+        name: "message_3",
+        message: "You were busy C:",
+        onEnter: () => {
+            showImage('assets/suit.gif')
+        }
+    },
+            {
+        name: "message_3",
+        message: "Fast forward to that time, when it all changed",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+            {
+        name: "message_3",
+        message: "And then I told you about all the shit she’s been saying about you behind your back.",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+            {
+        name: "message_3",
+        message: "I was ready for the block lol",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+            {
+        name: "message_3",
+        message: "I genuinely thought you’re gonna block me until you asked if I’m going to block you? HUH?",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+            {
+        name: "message_3",
+        message: "I was so baffled like, wait you’re not gonna ME???",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+            {
+        name: "message_3",
+        message: "And then the break up with her and here you were, helping me and holding me up.",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+            {
+        name: "message_3",
+        message: "And then fast forward again to that time you told me the pedo contacted you again and you told me you were gonna get back with him like :DDDDDDDDDDDDDDDDD…………..",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+            {
+        name: "message_3",
+        message: "My heart sank, a bit too much too and it made me feel weird, that’s one of the early times I realized I had feelings for you.",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+            {
+        name: "message_3",
+        message: "It scared me.",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+            {
+        name: "message_3",
+        message: "And amidst all of that I was like “What if she gets back with him?”",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+            {
+        name: "message_3",
+        message: "I decided to pull my gears and go head first in 😭",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+
+            {
+        name: "message_3",
+        message: "I was like “damn you’re gonna fall for me now? 😏”",
+        onEnter: () => {
+            playVoiceMessage('voice1.mp3');
+        }
+    },
+            {
+        name: "message_3",
+        message: "You said yes.",
         onEnter: () => {
             document.body.classList.add('white-mode');
             messageDiv.style.color = 'black';
             cursor.style.borderColor = 'black';
-            duckMusicForVoice();
-            playVoiceMessage('voice3.mp3');
+            playVoiceMessage('assets/v1.m4a');
+        }
+    },
+                {
+        name: "message_3",
+        message: "Thank you for coming into my life and becoming my rose.",
+        showImageAfter: 'assets/rose.png',
+        onEnter: () => {
+            document.body.classList.remove('white-mode');
+            messageDiv.style.color = 'white';
+            cursor.style.borderColor = 'white';
+            playVoiceMessage('assets/v2.m4a');
+        }
+    },
+        {
+        name: "message_4",
+        message: "And thank you for letting me be your tulip.",
+        showImageAfter: 'assets/tulip.png',
+        onEnter: () => {
+            playVoiceMessage('assets/v3.m4a');
+        }
+    },
+        {
+        name: "message_5",
+        message: "You've truly become everything I ever wanted lol.",
+        showImageAfter: 'assets/rosetulip.png',
+        onEnter: () => {
+            playVoiceMessage('assets/v4.m4a');
+        }
+    },
+    //-----------------------------------------------------------------
+    {
+        name: "message_2",
+        message: "Right now, I'm the happiest and the proudest person alive to have met you and to call myself your husband lol.",
+        onEnter: () => {
+            playVoiceMessage("assets/v5")
+        }
+    },
+        {
+        name: "message_2",
+        message: "I love you for all eternity baby.",
+        onEnter: () => {
+            playVoiceMessage("assets/v66")
+                        document.body.classList.add('white-mode');
+            messageDiv.style.color = 'black';
+            cursor.style.borderColor = 'black';
+        }
+    },
+    {
+        name: "message_3",
+        message: "So you said we should wait a week, and you even bet that I wouldn't last a week LMFAO.",
+
+        onEnter: () => {
+            playVoiceMessage('assets/v6');
+        }
+    },
+        {
+        name: "message_3",
+        message: "Guess who won the bet honey :)",
+
+        onEnter: () => {
+            playVoiceMessage('assets/v7');
+        }
+    },
+        {
+        name: "message_3",
+        message: "AND SO OUR AMAZING RELATIONSHIP STARTED SAILING",
+
+        onEnter: () => {
+            playVoiceMessage('assets/v8');
+        }
+    },
+        {
+        name: "message_3",
+        message: "I honestly didn't expect us to become this close baby, to get this far.",
+
+        onEnter: () => {
+            playVoiceMessage('assets/v9');
+        }
+    },
+        {
+        name: "message_3",
+        message: "And I was honestly beyond scared because I was going in without knowing much about you, with nothing but hope.",
+
+        onEnter: () => {
+            playVoiceMessage('assets/v10');
+        }
+    },
+        {
+        name: "message_3",
+        message: "And I’m so fucking glad I did.",
+
+        onEnter: () => {
+            playVoiceMessage('assets/v11');
+        }
+    },
+        {
+        name: "message_3",
+        message: "It’s the best decision I’ve taken my whole life.",
+
+        onEnter: () => {
+            playVoiceMessage('assets/v12');
+        }
+    },
+        {
+        name: "message_3",
+        message: "You are the best thing that’s happened to me in my entire life honey.",
+
+        onEnter: () => {
+            playVoiceMessage('assets/v13');
+        }
+    },
+        {
+        name: "message_3",
+        message: "I’m so proud of us baby.",
+        onEnter: () => {
+            playVoiceMessage('assets/v15');
+            showImage('assets/all.jpg',)
+        }
+    },
+        {
+        name: "message_3",
+        message: "Oh I’m so proud of YOU honey.",
+
+        onEnter: () => {
+            playVoiceMessage('assets/v14');
+        }
+    },
+        {
+        name: "message_3",
+        message: "You changed a lot from the day we met.",
+
+        onEnter: () => {
+            playVoiceMessage('assets/v16');
+        }
+    },
+        {
+        name: "message_3",
+        message: "You were always amazing but you’ve became EVEN more amazing.",
+
+        onEnter: () => {
+            playVoiceMessage('assets/v17');
+        }
+    },
+        {
+        name: "message_3",
+        message: "And you changed me with you.",
+
+        onEnter: () => {
+            playVoiceMessage('assets/v18');
+        }
+    },
+        {
+        name: "message_3",
+        message: "We’ve made a ton of amazing memories honey.",
+
+        onEnter: () => {
+            playVoiceMessage('assets/v19');
+        }
+    },
+        {
+        name: "message_3",
+        message: "And we’re gonna make so many more to come.",
+
+        onEnter: () => {
+            playVoiceMessage('assets/v20');
+        }
+    },
+            {
+        name: "message_3",
+        message: "SOOOOOOOOOOO BABYYYYYYYY :)",
+
+        onEnter: () => {
+            playVoiceMessage('assets/v21');
+        }
+    },
+    //--------------------------------------------------------
+    {
+        name: "color_change",
+        message: "HAPPY NEW YEAR MY BABYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
+        onEnter: () => {
+            playVoiceMessage('assets/v22');
         }
     },
     {
         name: "final_message",
-        message: "Now suck my dick bitch you won't see the rest LmMFAO BHAHAAHHAHAHAHAHAHAHHAHAHA DOG LFMAOAOAOAO"
+        message: "And this is just the beginning honey :)",
+                onEnter: () => {
+            playVoiceMessage('assets/v23');
+        }
+    },
+        {
+        name: "final_message",
+        message: "I'm gonna keep working on this until the day we meet and even after. This is gonna be like our album baby. God I love you.",
+                onEnter: () => {
+            playVoiceMessage('assets/v24');
+        }
+    },
+            {
+        name: "final_message",
+        message: "I love you more than anything there is honey.",
+                onEnter: () => {
+            playVoiceMessage('assets/v25');
+        }
+    },
+                {
+        name: "final_message",
+        message: "I love you my amazing lovely wife. I love you baby. MMMMMMMAWH.",
+                onEnter: () => {
+            playVoiceMessage('assets/v26');
+        }
+    },
+                    {
+        name: "final_message",
+        message: "Rrrrooooll the creeeddditsshhuhhh",
+                onEnter: () => {
+            playVoiceMessage('assets/v27');
+        }
+    },
+                {
+        name: "final_message",
+        message: ":)"
     },
     {
         name: "credits",
